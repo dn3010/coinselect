@@ -13,14 +13,7 @@ module.exports = function accumulative (utxos, outputs, feeRate) {
   for (var i = 0; i < utxos.length; ++i) {
     var utxo = utxos[i]
     var utxoBytes = utils.inputBytes(utxo)
-    var utxoFee = feeRate * utxoBytes
     var utxoValue = utils.uintOrNaN(utxo.value)
-
-    // skip detrimental input
-    if (utxoFee > utxo.value) {
-      if (i === utxos.length - 1) return { fee: feeRate * (bytesAccum + utxoBytes) }
-      continue
-    }
 
     bytesAccum += utxoBytes
     inAccum += utxoValue
